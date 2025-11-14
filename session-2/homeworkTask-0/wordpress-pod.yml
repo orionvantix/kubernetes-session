@@ -1,0 +1,28 @@
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: wordpress
+  namespace: frontend
+spec:
+  containers:
+  - name: wordpress-container
+    image: wordpress
+    env:
+    - name: WORDPRESS_DB_HOST
+      value: db.backend
+    - name: WORDPRESS_DB_NAME
+      value: wordpress
+    - name: WORDPRESS_DB_USER
+      value: wordpress
+    - name: WORDPRESS_DB_PASSWORD
+      value: password123
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources:                                    # NOTE: added to satisfy frontend ResourceQuota
+      requests:
+        cpu: "200m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "500Mi"
