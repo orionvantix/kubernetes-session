@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-app
+  namespace: cloud-engineering
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: internal-app
+  template:
+    metadata:
+      labels:
+        app: internal-app
+    spec:
+      serviceAccountName: cloud-engineering
+      containers:
+        - name: app
+          image: nginx
