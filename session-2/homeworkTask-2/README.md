@@ -1,16 +1,16 @@
 # Kubernetes Service Account Task
 
-# 1. Namespace
-Created the namespace:
-kubernetes create namespace cloud-engineering
+# Namespace
+kubectl create namespace cloud-engineering
 
-# 2. Service Account
-Created the service account:
-kubectl create serviceaccount cloud-engineering -n cloud-engineering
+# Service Account
+kubectl create serviceaccount cloud-engineers -n cloud-engineering
 
-# 3. Deployment
-Created the deployment in the default namespace:
+# Deployment
 kubectl create deployment internal-app --image=nginx -n default
 
-# 4. Update Deployment
-Mover
+# Update Deployment
+kubectl patch deployment internal-app -n default \
+  --type='json' \
+  -p='[{"op": "add", "path": "/spec/template/spec/serviceAccountName", "value":"cloud-engineers"}]'
+
